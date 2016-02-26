@@ -1,0 +1,32 @@
+{
+  "name": "nhlpimg",
+  "version": "0.1.0",
+  "author": "capcrunch <pucksdeep@capcrunch.io> (http://capcrunch.io)",
+  "description": "Finds NHL Player headshot images.",
+  "keywords": [
+    "nhl",
+    "player",
+    "headshot",
+    "images"
+  ],
+  "license": "Apache-2.0",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:capcrunchIO/nhl-player-image-grabber.git"
+  },
+  "dependencies": {
+    "cli": "^0.11.1",
+    "node-horseman": "^2.8.2"
+  },
+  "bin": {
+    "nhlpimg": "app.js"
+  },
+  "bugs": {
+    "url": "https://github.com/capcrunchIO/nhl-player-image-grabber/issues"
+  },
+  "homepage": "https://github.com/capcrunchIO/nhl-player-image-grabber",
+  "scripts": {
+    "test": "nhlpimg -h"
+  }
+}
