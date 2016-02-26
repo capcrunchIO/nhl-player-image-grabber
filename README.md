@@ -2,7 +2,7 @@
 NPM/Node CLI utility that finds NHL Player headshot images.
 
 #### Usage
-    $ npm install nhlpimg
+    $ sudo npm install -g nhlpimg
     $ nhlpimg "FIRST_NAME LAST_NAME"
 
 #### Example
