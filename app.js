@@ -29,17 +29,26 @@ function start() {
   .wait(1000)
   .evaluate(function(fname, lname, err_sel, res_sel) {
     var url, src = [0, '', 0, fname + ' ' + lname];
-    if ($(err_sel).css('display') === 'block') { src[0] = 'NOT_FOUND'; } // no results found
-    else if ($(res_sel).css('display') === 'table') { // results found
-      var link_rx = new RegExp(fname.replace(/["']/g, '') + '-' + lname.replace(/["']/g, ''), 'g');
+    // no results found
+    if ($(err_sel).css('display') === 'block') { src[0] = 'NOT_FOUND'; }
+    // results found
+    else if ($(res_sel).css('display') === 'table') {
+      var link_rx = new RegExp(fname.replace(/'/g, '') + '-' + lname.replace(/'/g, '') + '-', 'g');
       var src_rx = new RegExp('(skater|goalie)', 'g');
-      $('.results-table tbody tr td a').each(function(i) { // scan results
+      // scan results
+      $('.results-table tbody tr td a').each(function(i) {
         url = $(this).attr('href');
-        if (link_rx.test(url)) { // find image url
-          src[0] = 'IMG_FOUND';
-          src[1] = $('.results-table tbody tr td a:eq('+i+') img').attr('src').replace('.jpg', '.png');
-          src[2] = url;
-          if (src && src_rx.test(src)) { src[0] = 'DEFAULT_IMG'; } // default image
+        // find image url
+        if (link_rx.test(url)) {
+          src = ['IMG_FOUND', $('.results-table tbody tr td a:eq(' + i + ') img').attr('src').replace('.jpg', '.png'), url];
+          // default image found
+          if (src && src_rx.test(src)) {
+            // next player has identical name + image found
+            url = $('.results-table tbody tr:eq(' + (i + 1) + ') td a').attr('href');
+            if (url) {
+              src = ['IMG_FOUND', $('.results-table tbody tr td a:eq(' + (i + 1) + ') img').attr('src').replace('.jpg', '.png'), url];
+            } else { src[0] = 'DEFAULT_IMG'; }
+          }
           return false;
         }
       });
