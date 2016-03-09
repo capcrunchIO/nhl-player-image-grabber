@@ -12,7 +12,11 @@ NPM/Node CLI utility that finds NHL Player headshot images.
     $ nhlpimg "Wayne Gretzky"
     » https://nhl.bamcontent.com/images/headshots/current/168x168/8447400.png
 
-#### Messages
+#### Output
+- **`[URL]`** _Player image found._
+
+- **`* [URL]`** _Second name-matching image was found (after first match returned a default image)._
+
 - **`DEF_IMAGE_GOALIE`** _Default goaltender image was found ([https://goo.gl/r60Q8q](https://goo.gl/r60Q8q))._
 
 - **`DEF_IMAGE_SKATER`** _Default skater image was found ([https://goo.gl/CJSjvn](https://goo.gl/CJSjvn))._

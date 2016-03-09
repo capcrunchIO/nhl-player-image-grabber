@@ -4,8 +4,6 @@ var cli = require('cli'),
     Horseman = require('node-horseman'),
     horseman = new Horseman(),
     options  = cli.parse(),
-    err_sel  = '.alert.alert-info.type-ahead-message',
-    res_sel  = '.results-table',
     name, fname, lname, ex = ' » [ex: nhlpimg "Wayne Gretzky"]';
 
 cli.main(function(args, options) {
@@ -27,13 +25,13 @@ function start() {
   .open('https://www.nhl.com/player')
   .type('#searchTerm', name)
   .wait(2000)
-  .evaluate(function(fname, lname, err_sel, res_sel) {
+  .evaluate(function(fname, lname) {
     var res = [0, '', ''];
     // no results found
-    if ($(err_sel).css('display') === 'block') { res[0] = 'NOT_FOUND'; }
+    if ($('.alert.alert-info.type-ahead-message').css('display') === 'block') { res[0] = 'NOT_FOUND'; }
     // results found
-    else if ($(res_sel).css('display') === 'table') {
-      var player_name = fname.replace(/'/g, '') + '-' + lname.replace(/'/g, '') + '-',
+    else if ($('.results-table').css('display') === 'table') {
+      var player_name = fname.replace(/'|\./g, '') + '-' + lname.replace(/'/g, '') + '-',
           link_rx = new RegExp(player_name, 'g');
       // scan results
       $('.results-table tbody tr').each(function(i) {
@@ -56,7 +54,7 @@ function start() {
       });
     }
     return res;
-  }, fname, lname, err_sel, res_sel)
+  }, fname, lname)
   .then(function(res) {
     var chain = horseman;
     // no results found
